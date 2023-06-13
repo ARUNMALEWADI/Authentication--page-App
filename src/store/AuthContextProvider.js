@@ -7,15 +7,21 @@ logout:()=>{}
 })
 
 export const AuthContextProvider = (props) => {
-    const[token,setToken]=useState(null)
+  const initial=localStorage.getItem('token')
+    const[token,setToken]=useState(initial)
 
     const UserIsloggedin=!!token;
 
     const loginHandler=(token)=>{
+      localStorage.setItem('token',token)
             setToken(token)
+            setTimeout(()=>{localStorage.removeItem('token')
+            console.log('hi');
+          },10000)
     }
     const logoutHandler=()=>{
         setToken(null)
+        localStorage.removeItem('token')
         
     }
     const helper={
